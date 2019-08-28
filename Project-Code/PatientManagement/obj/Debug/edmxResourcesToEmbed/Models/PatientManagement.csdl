@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PatientManagementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="AdviceDetail">
+    <Key>
+      <PropertyRef Name="AdviceId" />
+    </Key>
+    <Property Name="PatientId" Type="Int32" Nullable="false" />
+    <Property Name="PatientMessage" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="DoctorMessage" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="AdviceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AdviceTime" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="PatientDetail" Relationship="Self.FK_AdviceDetails_PatientDetails" FromRole="AdviceDetails" ToRole="PatientDetails" />
+  </EntityType>
+  <EntityType Name="AppointmentDetail">
+    <Key>
+      <PropertyRef Name="AppointmentId" />
+    </Key>
+    <Property Name="AppointmentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PatientId" Type="Int32" Nullable="false" />
+    <Property Name="Age" Type="Int32" Nullable="false" />
+    <Property Name="DiseaseInfo" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="AppointmentDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="AppointmentTime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="SheduleUpdated" Type="Boolean" Nullable="false" />
+    <Property Name="SheduleDate" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="TreatmentDetails" Relationship="Self.FK__Treatment__Appoi__47DBAE45" FromRole="AppointmentDetails" ToRole="TreatmentDetails" />
+    <NavigationProperty Name="PatientDetail" Relationship="Self.FK_AppoinmentDetails_PatientDetails" FromRole="AppointmentDetails" ToRole="PatientDetails" />
+  </EntityType>
+  <EntityType Name="PatientDetail">
+    <Key>
+      <PropertyRef Name="Patient_Id" />
+    </Key>
+    <Property Name="Patient_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Gender" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="11" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="60" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UserType" Type="Boolean" Nullable="false" />
+    <Property Name="RegistrationDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Address" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="AdviceDetails" Relationship="Self.FK_AdviceDetails_PatientDetails" FromRole="PatientDetails" ToRole="AdviceDetails" />
+    <NavigationProperty Name="AppointmentDetails" Relationship="Self.FK_AppoinmentDetails_PatientDetails" FromRole="PatientDetails" ToRole="AppointmentDetails" />
+    <NavigationProperty Name="TreatmentDetails" Relationship="Self.FK_TreatmentDetails_PatientDetails" FromRole="PatientDetails" ToRole="TreatmentDetails" />
+  </EntityType>
+  <EntityType Name="TreatmentDetail">
+    <Key>
+      <PropertyRef Name="TreatmentId" />
+    </Key>
+    <Property Name="PatientId" Type="Int32" Nullable="false" />
+    <Property Name="TreatmentDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Treatment" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Bill" Type="Int32" Nullable="false" />
+    <Property Name="TreatmentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AppointmentId" Type="Int32" />
+    <NavigationProperty Name="AppointmentDetail" Relationship="Self.FK__Treatment__Appoi__47DBAE45" FromRole="TreatmentDetails" ToRole="AppointmentDetails" />
+    <NavigationProperty Name="PatientDetail" Relationship="Self.FK_TreatmentDetails_PatientDetails" FromRole="TreatmentDetails" ToRole="PatientDetails" />
+  </EntityType>
+  <Association Name="FK_AdviceDetails_PatientDetails">
+    <End Role="PatientDetails" Type="Self.PatientDetail" Multiplicity="1" />
+    <End Role="AdviceDetails" Type="Self.AdviceDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PatientDetails">
+        <PropertyRef Name="Patient_Id" />
+      </Principal>
+      <Dependent Role="AdviceDetails">
+        <PropertyRef Name="PatientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Treatment__Appoi__47DBAE45">
+    <End Role="AppointmentDetails" Type="Self.AppointmentDetail" Multiplicity="0..1" />
+    <End Role="TreatmentDetails" Type="Self.TreatmentDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AppointmentDetails">
+        <PropertyRef Name="AppointmentId" />
+      </Principal>
+      <Dependent Role="TreatmentDetails">
+        <PropertyRef Name="AppointmentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AppoinmentDetails_PatientDetails">
+    <End Role="PatientDetails" Type="Self.PatientDetail" Multiplicity="1" />
+    <End Role="AppointmentDetails" Type="Self.AppointmentDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PatientDetails">
+        <PropertyRef Name="Patient_Id" />
+      </Principal>
+      <Dependent Role="AppointmentDetails">
+        <PropertyRef Name="PatientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TreatmentDetails_PatientDetails">
+    <End Role="PatientDetails" Type="Self.PatientDetail" Multiplicity="1" />
+    <End Role="TreatmentDetails" Type="Self.TreatmentDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PatientDetails">
+        <PropertyRef Name="Patient_Id" />
+      </Principal>
+      <Dependent Role="TreatmentDetails">
+        <PropertyRef Name="PatientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="PatientManagementEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="AdviceDetails" EntityType="Self.AdviceDetail" />
+    <EntitySet Name="AppointmentDetails" EntityType="Self.AppointmentDetail" />
+    <EntitySet Name="PatientDetails" EntityType="Self.PatientDetail" />
+    <EntitySet Name="TreatmentDetails" EntityType="Self.TreatmentDetail" />
+    <AssociationSet Name="FK_AdviceDetails_PatientDetails" Association="Self.FK_AdviceDetails_PatientDetails">
+      <End Role="PatientDetails" EntitySet="PatientDetails" />
+      <End Role="AdviceDetails" EntitySet="AdviceDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Treatment__Appoi__47DBAE45" Association="Self.FK__Treatment__Appoi__47DBAE45">
+      <End Role="AppointmentDetails" EntitySet="AppointmentDetails" />
+      <End Role="TreatmentDetails" EntitySet="TreatmentDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AppoinmentDetails_PatientDetails" Association="Self.FK_AppoinmentDetails_PatientDetails">
+      <End Role="PatientDetails" EntitySet="PatientDetails" />
+      <End Role="AppointmentDetails" EntitySet="AppointmentDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TreatmentDetails_PatientDetails" Association="Self.FK_TreatmentDetails_PatientDetails">
+      <End Role="PatientDetails" EntitySet="PatientDetails" />
+      <End Role="TreatmentDetails" EntitySet="TreatmentDetails" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

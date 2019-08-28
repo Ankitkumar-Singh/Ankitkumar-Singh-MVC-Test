@@ -1,0 +1,63 @@
+﻿@model IEnumerable<PatientManagement.Models.AdviceDetail>
+
+<div class="container my-3">
+    <div class="card border-light mb-lg-5">
+        <div class="card-body text-center">
+            <div class="row">
+                <div class="col-md-12">
+                    <img class="img-responsive" src="~/Assets/Images/Doctor-chat.png" height="120" width="120" />
+                </div>
+                <div class="col-md-12 my-4">
+                    <strong> @Html.ActionLink("Click here to talk with your doctor.", "Create", null, new { @class = "btn btn-lg btn-warning" })</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="page-header my-2">
+        <h3 id="tables">Your messages. </h3>
+    </div>
+    @foreach (var item in Model.OrderByDescending(item => item.AdviceTime))
+    {
+        <div class="row m-3">
+            <div class="post-comments col-md-6">
+                <div class="row">
+                    <div class="col-md-2">
+                        <img class="img-thumbnail avatar-outer img-responsive user-photo" src="~/Assets/images/chat.png" height="90px" width="90px">
+                    </div>
+                    <div class="col-md-10">
+                        <div class="card card-info">
+                            <div class="card-header  bg-primary">
+                                <span class="text-light font-weight-bold"> @Html.DisplayFor(modelItem => item.AdviceTime)</span>
+                                <p class="text-light lead">
+                                    @Html.Raw(item.PatientMessage)
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 post-comments-right">
+                <div class="row">
+                    <div class="col-md-10">
+                        <div class="card card-info">
+                            <div class="card-header  bg-primary">
+                                <span class="text-light font-weight-bold">Doctor</span>
+                                <p class="text-light lead">
+                                    @Html.Raw(item.DoctorMessage)
+                                </p>
+                                @*<span> @Html.DisplayFor(modelItem => item.AdviceTime)</span>*@
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <img class="img-thumbnail avatar-outer img-responsive user-photo" src="~/Assets/images/doctor.png" height="90px" width="90px">
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

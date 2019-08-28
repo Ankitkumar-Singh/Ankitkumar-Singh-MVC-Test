@@ -1,0 +1,65 @@
+﻿@model IEnumerable<PatientManagement.Models.TreatmentDetail>
+
+
+<div class="container my-3">
+    <div class="card border-light mb-lg-5">
+        <div class="card-body text-center">
+            <div class="row">
+                <div class="col-md-12">
+                    <img class="img-responsive" src="~/Assets/Images/cal.png" height="120" width="120" />
+                </div>
+                <div class="col-md-12 my-4">
+                    <h2><strong class="text-warning">Total Medical bill: @Model.Sum(item => item.Bill)</strong></h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="bs-docs-section">
+    <div class="container ">
+        <div class="page-header my-2">
+            <h3 id="tables">Your treatment deatils. </h3>
+        </div>
+        <div class=" table-responsive ">
+
+            <table class="table">
+                <tr>
+                    <th>
+                        Treatment date
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Treatment)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.Bill)
+                    </th>
+
+                    <th></th>
+                </tr>
+
+                @{
+
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TreatmentDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Treatment)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Bill)
+                            </td>
+
+
+                        </tr>
+                    }
+                }
+            </table>
+        </div>
+    </div>
+</div>

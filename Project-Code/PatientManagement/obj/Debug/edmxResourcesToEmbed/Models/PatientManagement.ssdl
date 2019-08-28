@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PatientManagementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="AdviceDetails">
+    <Key>
+      <PropertyRef Name="AdviceId" />
+    </Key>
+    <Property Name="PatientId" Type="int" Nullable="false" />
+    <Property Name="PatientMessage" Type="nvarchar" MaxLength="500" />
+    <Property Name="DoctorMessage" Type="nvarchar" MaxLength="500" />
+    <Property Name="AdviceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AdviceTime" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AppointmentDetails">
+    <Key>
+      <PropertyRef Name="AppointmentId" />
+    </Key>
+    <Property Name="AppointmentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PatientId" Type="int" Nullable="false" />
+    <Property Name="Age" Type="int" Nullable="false" />
+    <Property Name="DiseaseInfo" Type="varchar" MaxLength="500" Nullable="false" />
+    <Property Name="AppointmentDate" Type="date" Nullable="false" />
+    <Property Name="AppointmentTime" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="SheduleUpdated" Type="bit" Nullable="false" />
+    <Property Name="SheduleDate" Type="date" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PatientDetails">
+    <Key>
+      <PropertyRef Name="Patient_Id" />
+    </Key>
+    <Property Name="Patient_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Gender" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="PhoneNumber" Type="nvarchar" MaxLength="11" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="60" Nullable="false" />
+    <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="UserType" Type="bit" Nullable="false" />
+    <Property Name="RegistrationDate" Type="date" Nullable="false" />
+    <Property Name="Address" Type="nvarchar" MaxLength="150" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TreatmentDetails">
+    <Key>
+      <PropertyRef Name="TreatmentId" />
+    </Key>
+    <Property Name="PatientId" Type="int" Nullable="false" />
+    <Property Name="TreatmentDate" Type="date" Nullable="false" />
+    <Property Name="Treatment" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="Bill" Type="int" Nullable="false" />
+    <Property Name="TreatmentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AppointmentId" Type="int" />
+  </EntityType>
+  <Association Name="FK__Treatment__Appoi__47DBAE45">
+    <End Role="AppointmentDetails" Type="Self.AppointmentDetails" Multiplicity="0..1" />
+    <End Role="TreatmentDetails" Type="Self.TreatmentDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AppointmentDetails">
+        <PropertyRef Name="AppointmentId" />
+      </Principal>
+      <Dependent Role="TreatmentDetails">
+        <PropertyRef Name="AppointmentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AdviceDetails_PatientDetails">
+    <End Role="PatientDetails" Type="Self.PatientDetails" Multiplicity="1" />
+    <End Role="AdviceDetails" Type="Self.AdviceDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PatientDetails">
+        <PropertyRef Name="Patient_Id" />
+      </Principal>
+      <Dependent Role="AdviceDetails">
+        <PropertyRef Name="PatientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AppoinmentDetails_PatientDetails">
+    <End Role="PatientDetails" Type="Self.PatientDetails" Multiplicity="1" />
+    <End Role="AppointmentDetails" Type="Self.AppointmentDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PatientDetails">
+        <PropertyRef Name="Patient_Id" />
+      </Principal>
+      <Dependent Role="AppointmentDetails">
+        <PropertyRef Name="PatientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TreatmentDetails_PatientDetails">
+    <End Role="PatientDetails" Type="Self.PatientDetails" Multiplicity="1" />
+    <End Role="TreatmentDetails" Type="Self.TreatmentDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PatientDetails">
+        <PropertyRef Name="Patient_Id" />
+      </Principal>
+      <Dependent Role="TreatmentDetails">
+        <PropertyRef Name="PatientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="PatientManagementModelStoreContainer">
+    <EntitySet Name="AdviceDetails" EntityType="Self.AdviceDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AppointmentDetails" EntityType="Self.AppointmentDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PatientDetails" EntityType="Self.PatientDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TreatmentDetails" EntityType="Self.TreatmentDetails" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Treatment__Appoi__47DBAE45" Association="Self.FK__Treatment__Appoi__47DBAE45">
+      <End Role="AppointmentDetails" EntitySet="AppointmentDetails" />
+      <End Role="TreatmentDetails" EntitySet="TreatmentDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AdviceDetails_PatientDetails" Association="Self.FK_AdviceDetails_PatientDetails">
+      <End Role="PatientDetails" EntitySet="PatientDetails" />
+      <End Role="AdviceDetails" EntitySet="AdviceDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AppoinmentDetails_PatientDetails" Association="Self.FK_AppoinmentDetails_PatientDetails">
+      <End Role="PatientDetails" EntitySet="PatientDetails" />
+      <End Role="AppointmentDetails" EntitySet="AppointmentDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TreatmentDetails_PatientDetails" Association="Self.FK_TreatmentDetails_PatientDetails">
+      <End Role="PatientDetails" EntitySet="PatientDetails" />
+      <End Role="TreatmentDetails" EntitySet="TreatmentDetails" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

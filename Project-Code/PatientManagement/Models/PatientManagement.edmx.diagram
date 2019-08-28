@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="76fbb8fe296f4d899ff01122d1211348" Name="Diagram1">
+        <EntityTypeShape EntityType="PatientManagementModel.AdviceDetail" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PatientManagementModel.AppointmentDetail" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="PatientManagementModel.PatientDetail" Width="1.5" PointX="0.75" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PatientManagementModel.TreatmentDetail" Width="1.5" PointX="5.25" PointY="3.375" IsExpanded="true" />
+        <AssociationConnector Association="PatientManagementModel.FK_AdviceDetails_PatientDetails" ManuallyRouted="false" />
+        <AssociationConnector Association="PatientManagementModel.FK__Treatment__Appoi__47DBAE45" ManuallyRouted="false" />
+        <AssociationConnector Association="PatientManagementModel.FK_AppoinmentDetails_PatientDetails" ManuallyRouted="false" />
+        <AssociationConnector Association="PatientManagementModel.FK_TreatmentDetails_PatientDetails" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
