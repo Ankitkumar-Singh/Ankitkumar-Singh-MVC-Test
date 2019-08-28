@@ -13,10 +13,18 @@ Foobar is a Python library for dealing with word pluralization.
 #### Login deatils
 
 **Doctor as Admin**
-
+```diff
+- Email: ankit.singh@aressindia.net
++ Password: Ankit@123
+```
 
 **Patient as User**
   1. Craete account to login.
+  2. Login with following details. 
+```diff
+- Email: nik@aress.net
++ Password: Ankit@123
+```
 
 
 ## Requirements and Features  
