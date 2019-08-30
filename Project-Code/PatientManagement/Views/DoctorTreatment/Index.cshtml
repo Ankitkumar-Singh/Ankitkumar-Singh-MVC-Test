@@ -68,7 +68,7 @@
                                     @Html.DisplayFor(modelItem => item.Bill)
                                 </td>
                                 <td>
-                                    @Html.ActionLink("Change", "Edit", new { id = item.AppointmentId }, new { @class = "btn btn-outline-warning btn-sm my-1" })
+                                    @Html.ActionLink("Change", "Edit", new { id = item.TreatmentId }, new { @class = "btn btn-outline-warning btn-sm my-1" })
                                     @Html.ActionLink("Delete", "Delete", new { id = item.TreatmentId }, new { @class = "btn btn-outline-danger btn-sm my-1" })
                                     @Html.ActionLink("Next appointment", "Create", "DoctorAppointment", null, new { @class = "btn btn-sm btn-outline-primary my-1" })
                                 </td>
